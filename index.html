@@ -1,0 +1,2497 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>동물의 한살이 🐛 과학 플랫폼</title>
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #2ecc71;
+    --green-dark: #27ae60;
+    --blue: #3498db;
+    --yellow: #f1c40f;
+    --orange: #e67e22;
+    --pink: #e91e8c;
+    --purple: #9b59b6;
+    --bg: #f0fdf4;
+    --card-bg: #ffffff;
+    --text: #1a2e1a;
+    --shadow: 0 8px 32px rgba(46,204,113,0.13);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Nanum Gothic', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ===== HEADER ===== */
+  header {
+    background: linear-gradient(135deg, #1a6b3a 0%, #2ecc71 60%, #a8e6cf 100%);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(46,204,113,0.3);
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 32px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .logo {
+    font-family: 'Jua', sans-serif;
+    font-size: 1.7rem;
+    color: #fff;
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .logo span { font-size: 2rem; }
+  .subtitle {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.85);
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  nav {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  nav button {
+    background: rgba(255,255,255,0.2);
+    border: 2px solid rgba(255,255,255,0.5);
+    color: #fff;
+    padding: 7px 16px;
+    border-radius: 50px;
+    font-family: 'Jua', sans-serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    backdrop-filter: blur(4px);
+  }
+  nav button:hover, nav button.active {
+    background: #fff;
+    color: var(--green-dark);
+    border-color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  /* ===== MAIN CONTENT ===== */
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 20px 60px;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: linear-gradient(135deg, #fff 60%, #e8fdf0 100%);
+    border-radius: 24px;
+    padding: 36px 40px;
+    margin-bottom: 32px;
+    box-shadow: var(--shadow);
+    border: 2px solid #b7f5c8;
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    flex-wrap: wrap;
+  }
+  .hero-text h1 {
+    font-family: 'Jua', sans-serif;
+    font-size: 2.2rem;
+    color: var(--green-dark);
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+  .hero-text p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.7;
+    max-width: 480px;
+  }
+  .hero-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+  .tag {
+    background: var(--green);
+    color: #fff;
+    padding: 4px 14px;
+    border-radius: 50px;
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+  .tag.blue { background: var(--blue); }
+  .tag.orange { background: var(--orange); }
+  .tag.purple { background: var(--purple); }
+  .hero-anim {
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    justify-content: center;
+  }
+  .cycle-anim {
+    width: 200px;
+    height: 200px;
+    position: relative;
+  }
+  .cycle-anim svg { width: 100%; height: 100%; }
+
+  /* ===== SECTION HEADER ===== */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .section-header h2 {
+    font-family: 'Jua', sans-serif;
+    font-size: 1.5rem;
+    color: var(--text);
+  }
+  .section-badge {
+    background: var(--green);
+    color: #fff;
+    padding: 3px 12px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  /* ===== MENU GRID ===== */
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  .menu-card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 24px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+  }
+  .menu-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+  }
+  .menu-card.ar::before { background: linear-gradient(90deg, #e91e8c, #9b59b6); }
+  .menu-card.drag::before { background: linear-gradient(90deg, #f39c12, #f1c40f); }
+  .menu-card.media::before { background: linear-gradient(90deg, #3498db, #2ecc71); }
+  .menu-card.camera::before { background: linear-gradient(90deg, #e74c3c, #e67e22); }
+  .menu-card.voice::before { background: linear-gradient(90deg, #9b59b6, #3498db); }
+  .menu-card.text::before { background: linear-gradient(90deg, #2ecc71, #1abc9c); }
+  .menu-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+    border-color: var(--green);
+  }
+  .menu-icon { font-size: 2.8rem; margin-bottom: 10px; }
+  .menu-card h3 {
+    font-family: 'Jua', sans-serif;
+    font-size: 1rem;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .menu-card p { font-size: 0.75rem; color: #888; line-height: 1.4; }
+
+  /* ===== PAGE PANELS ===== */
+  .panel {
+    display: none;
+    animation: fadeIn 0.35s ease;
+  }
+  .panel.active { display: block; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== BACK BUTTON ===== */
+  .back-btn {
+    background: none;
+    border: 2px solid var(--green);
+    color: var(--green-dark);
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-family: 'Jua', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin-bottom: 24px;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .back-btn:hover { background: var(--green); color: #fff; }
+
+  /* ===== AR PANEL ===== */
+  .ar-container {
+    background: #0d0d1a;
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .ar-viewport {
+    width: 100%;
+    min-height: 380px;
+    background: radial-gradient(ellipse at 50% 60%, #0f3d2a 0%, #0a1a14 100%);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .ar-grid {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      linear-gradient(rgba(46,204,113,0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(46,204,113,0.07) 1px, transparent 1px);
+    background-size: 40px 40px;
+    animation: gridMove 4s linear infinite;
+  }
+  @keyframes gridMove {
+    from { transform: translateY(0); }
+    to { transform: translateY(40px); }
+  }
+  .ar-creature {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    cursor: pointer;
+  }
+  .ar-emoji {
+    font-size: 7rem;
+    display: block;
+    animation: float 2.5s ease-in-out infinite;
+    filter: drop-shadow(0 0 30px rgba(46,204,113,0.6));
+    transition: all 0.3s;
+  }
+  .ar-emoji:hover { transform: scale(1.15); }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(-3deg); }
+    50% { transform: translateY(-18px) rotate(3deg); }
+  }
+  .ar-label {
+    color: #7fffb4;
+    font-family: 'Jua', sans-serif;
+    font-size: 1.1rem;
+    margin-top: 12px;
+    text-shadow: 0 0 12px rgba(46,204,113,0.8);
+  }
+  .ar-info-card {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(46,204,113,0.4);
+    border-radius: 16px;
+    padding: 16px;
+    color: #fff;
+    max-width: 200px;
+    font-size: 0.82rem;
+    line-height: 1.6;
+  }
+  .ar-info-card h4 {
+    font-family: 'Jua', sans-serif;
+    font-size: 1rem;
+    color: #7fffb4;
+    margin-bottom: 8px;
+  }
+  .ar-controls {
+    display: flex;
+    gap: 10px;
+    padding: 20px;
+    background: #111;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .ar-btn {
+    background: rgba(46,204,113,0.15);
+    border: 1px solid rgba(46,204,113,0.4);
+    color: #7fffb4;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-family: 'Jua', sans-serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .ar-btn:hover, .ar-btn.active {
+    background: var(--green);
+    color: #fff;
+    border-color: var(--green);
+  }
+  .ar-scan-frame {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 220px; height: 220px;
+    pointer-events: none;
+    z-index: 3;
+  }
+  .ar-scan-frame::before, .ar-scan-frame::after {
+    content: '';
+    position: absolute;
+    width: 40px; height: 40px;
+    border-color: #2ecc71;
+    border-style: solid;
+  }
+  .ar-scan-frame::before {
+    top: 0; left: 0;
+    border-width: 3px 0 0 3px;
+    border-radius: 8px 0 0 0;
+  }
+  .ar-scan-frame::after {
+    bottom: 0; right: 0;
+    border-width: 0 3px 3px 0;
+    border-radius: 0 0 8px 0;
+  }
+  .scan-line {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #2ecc71, transparent);
+    animation: scan 2s ease-in-out infinite;
+    box-shadow: 0 0 10px rgba(46,204,113,0.8);
+  }
+  @keyframes scan {
+    0% { top: 0; }
+    50% { top: calc(100% - 2px); }
+    100% { top: 0; }
+  }
+
+  /* ===== DRAG DROP PANEL ===== */
+  .drag-stage {
+    background: linear-gradient(180deg, #e8f8f0 0%, #fff 100%);
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: var(--shadow);
+    border: 2px solid #b7f5c8;
+  }
+  .drag-instruction {
+    font-family: 'Jua', sans-serif;
+    font-size: 1.1rem;
+    color: var(--green-dark);
+    margin-bottom: 24px;
+    padding: 14px 20px;
+    background: #fff;
+    border-radius: 14px;
+    border-left: 5px solid var(--green);
+    box-shadow: 0 2px 8px rgba(46,204,113,0.1);
+  }
+  .lifecycle-track {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .drop-zone {
+    width: 120px;
+    height: 120px;
+    border: 3px dashed #c3e6cb;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #f8fff9;
+    transition: all 0.2s;
+    position: relative;
+    cursor: pointer;
+  }
+  .drop-zone.filled {
+    border-color: var(--green);
+    background: #e8fdf0;
+    border-style: solid;
+  }
+  .drop-zone.over {
+    border-color: var(--orange);
+    background: #fff8ee;
+    transform: scale(1.05);
+  }
+  .drop-zone .zone-label {
+    font-size: 0.72rem;
+    color: #aaa;
+    margin-top: 6px;
+    font-weight: 700;
+  }
+  .drop-zone .zone-emoji {
+    font-size: 2.8rem;
+    line-height: 1;
+  }
+  .drop-zone .zone-name {
+    font-family: 'Jua', sans-serif;
+    font-size: 0.8rem;
+    color: var(--green-dark);
+    margin-top: 2px;
+  }
+  .arrow-between {
+    font-size: 1.6rem;
+    color: var(--green);
+    flex-shrink: 0;
+  }
+  .drag-cards {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .drag-card {
+    background: #fff;
+    border: 2px solid #ddd;
+    border-radius: 16px;
+    padding: 16px 20px;
+    text-align: center;
+    cursor: grab;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    user-select: none;
+  }
+  .drag-card:hover {
+    transform: translateY(-4px) rotate(-1deg);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    border-color: var(--green);
+  }
+  .drag-card:active { cursor: grabbing; opacity: 0.7; }
+  .drag-card.dragging { opacity: 0.4; }
+  .drag-card .card-emoji { font-size: 2.4rem; display: block; }
+  .drag-card .card-name {
+    font-family: 'Jua', sans-serif;
+    font-size: 0.85rem;
+    color: var(--text);
+    margin-top: 6px;
+  }
+  .drag-result {
+    margin-top: 20px;
+    padding: 14px 20px;
+    border-radius: 14px;
+    font-family: 'Jua', sans-serif;
+    font-size: 1rem;
+    text-align: center;
+    display: none;
+  }
+  .drag-result.success {
+    background: #e8fdf0;
+    color: var(--green-dark);
+    border: 2px solid var(--green);
+    display: block;
+  }
+  .drag-result.error {
+    background: #ffeee8;
+    color: #e74c3c;
+    border: 2px solid #e74c3c;
+    display: block;
+  }
+  .check-btn {
+    background: var(--green);
+    color: #fff;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 50px;
+    font-family: 'Jua', sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 16px;
+    transition: all 0.2s;
+    box-shadow: 0 4px 12px rgba(46,204,113,0.3);
+  }
+  .check-btn:hover { background: var(--green-dark); transform: translateY(-2px); }
+
+  /* ===== MEDIA PANEL ===== */
+  .media-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+  }
+  @media (max-width: 700px) { .media-layout { grid-template-columns: 1fr; } }
+  .video-container {
+    background: #000;
+    border-radius: 20px;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+    position: relative;
+    box-shadow: var(--shadow);
+  }
+  .video-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  .video-caption {
+    background: #fff;
+    border-radius: 0 0 20px 20px;
+    padding: 12px 16px;
+    font-size: 0.85rem;
+    color: #555;
+  }
+  .media-sidebar h3 {
+    font-family: 'Jua', sans-serif;
+    font-size: 1rem;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+  .media-list { display: flex; flex-direction: column; gap: 10px; }
+  .media-item {
+    background: #fff;
+    border-radius: 14px;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 2px solid transparent;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .media-item:hover { border-color: var(--green); transform: translateX(4px); }
+  .media-item.active { border-color: var(--green); background: #e8fdf0; }
+  .media-thumb { font-size: 2rem; flex-shrink: 0; }
+  .media-info h4 { font-family: 'Jua', sans-serif; font-size: 0.85rem; }
+  .media-info p { font-size: 0.72rem; color: #888; margin-top: 2px; }
+  .media-below {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+  }
+  .info-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 18px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    border-top: 4px solid var(--green);
+    transition: all 0.2s;
+  }
+  .info-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+  .info-card .ic-emoji { font-size: 2rem; margin-bottom: 8px; }
+  .info-card h4 { font-family: 'Jua', sans-serif; font-size: 0.9rem; color: var(--text); margin-bottom: 6px; }
+  .info-card p { font-size: 0.78rem; color: #666; line-height: 1.5; }
+
+  /* ===== CAMERA PANEL ===== */
+  .camera-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  @media (max-width: 700px) { .camera-layout { grid-template-columns: 1fr; } }
+  .camera-box {
+    background: #1a1a2e;
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 4/3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #cameraFeed {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+  }
+  .camera-placeholder {
+    text-align: center;
+    color: rgba(255,255,255,0.6);
+  }
+  .camera-placeholder .cam-icon { font-size: 4rem; margin-bottom: 12px; }
+  .camera-placeholder p { font-size: 0.85rem; }
+  .camera-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    padding: 16px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .cam-btn {
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #fff;
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-family: 'Jua', sans-serif;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .cam-btn:hover { background: var(--green); border-color: var(--green); }
+  .cam-btn.red { background: rgba(231,76,60,0.7); border-color: #e74c3c; }
+  .cam-btn.red:hover { background: #e74c3c; }
+  .upload-zone {
+    background: #fff;
+    border-radius: 24px;
+    border: 3px dashed #c3e6cb;
+    padding: 32px;
+    text-align: center;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .upload-zone:hover { border-color: var(--green); background: #e8fdf0; }
+  .upload-zone .up-icon { font-size: 3.5rem; margin-bottom: 12px; }
+  .upload-zone h3 { font-family: 'Jua', sans-serif; font-size: 1.1rem; color: var(--green-dark); margin-bottom: 8px; }
+  .upload-zone p { font-size: 0.82rem; color: #888; line-height: 1.5; }
+  .upload-gallery {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+  }
+  .gallery-item {
+    background: #fff;
+    border-radius: 12px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    font-size: 0.72rem;
+    color: #666;
+  }
+  .gallery-item img {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 6px;
+  }
+  .gallery-item .placeholder-img {
+    width: 100%;
+    height: 80px;
+    background: #f0f0f0;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin-bottom: 6px;
+  }
+
+  /* ===== VOICE PANEL ===== */
+  .voice-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  @media (max-width: 700px) { .voice-main { grid-template-columns: 1fr; } }
+  .voice-mic-area {
+    background: linear-gradient(135deg, #1a0a2e 0%, #2d1b69 100%);
+    border-radius: 24px;
+    padding: 40px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 320px;
+  }
+  .mic-btn {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #9b59b6, #3498db);
+    border: none;
+    font-size: 2.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 0 0 0 rgba(155,89,182,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin-bottom: 20px;
+  }
+  .mic-btn.listening {
+    animation: pulse 1.2s ease-in-out infinite;
+    box-shadow: 0 0 0 20px rgba(155,89,182,0.1);
+  }
+  @keyframes pulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(155,89,182,0.4); }
+    70% { transform: scale(1.05); box-shadow: 0 0 0 20px rgba(155,89,182,0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(155,89,182,0); }
+  }
+  .mic-status {
+    font-family: 'Jua', sans-serif;
+    font-size: 1rem;
+    color: #c9b8f0;
+    margin-bottom: 10px;
+  }
+  .transcript-box {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(155,89,182,0.3);
+    border-radius: 14px;
+    padding: 14px;
+    color: #fff;
+    font-size: 0.85rem;
+    min-height: 60px;
+    width: 100%;
+    line-height: 1.6;
+  }
+  .voice-answers {
+    background: #fff;
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow: var(--shadow);
+    border: 2px solid #b7f5c8;
+  }
+  .voice-answers h3 { font-family: 'Jua', sans-serif; font-size: 1.1rem; color: var(--text); margin-bottom: 16px; }
+  .q-item {
+    background: #f8fff9;
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 10px;
+    border-left: 4px solid var(--green);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .q-item:hover { background: #e8fdf0; transform: translateX(4px); }
+  .q-item h4 { font-family: 'Jua', sans-serif; font-size: 0.88rem; color: var(--green-dark); margin-bottom: 4px; }
+  .q-item p { font-size: 0.78rem; color: #555; line-height: 1.5; }
+  .q-item.answered { border-color: var(--blue); background: #eef5fd; }
+  .voice-controls-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; justify-content: center; }
+  .v-btn {
+    background: linear-gradient(135deg, #9b59b6, #3498db);
+    color: #fff;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 50px;
+    font-family: 'Jua', sans-serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .v-btn:hover { opacity: 0.85; transform: translateY(-2px); }
+
+  /* ===== TEXT PANEL ===== */
+  .textbook-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+  }
+  @media (max-width: 700px) { .textbook-layout { grid-template-columns: 1fr; } }
+  .textbook-page {
+    background: #fffef5;
+    border-radius: 24px;
+    padding: 36px 40px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+    border: 1px solid #e8e0c8;
+    position: relative;
+    font-family: 'Nanum Gothic', sans-serif;
+  }
+  .textbook-page::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 56px; bottom: 0;
+    width: 1px;
+    background: rgba(255, 150, 150, 0.4);
+  }
+  .page-num {
+    position: absolute;
+    bottom: 20px;
+    right: 24px;
+    font-size: 0.75rem;
+    color: #aaa;
+    font-family: 'Jua', sans-serif;
+  }
+  .tb-title {
+    font-family: 'Jua', sans-serif;
+    font-size: 1.5rem;
+    color: #1a4a2e;
+    margin-bottom: 6px;
+    padding-left: 24px;
+  }
+  .tb-subject {
+    font-size: 0.78rem;
+    color: #888;
+    padding-left: 24px;
+    margin-bottom: 20px;
+  }
+  .tb-divider {
+    height: 2px;
+    background: linear-gradient(90deg, #2ecc71, transparent);
+    margin-bottom: 20px;
+  }
+  .tb-section h3 {
+    font-family: 'Jua', sans-serif;
+    font-size: 1rem;
+    color: #1a4a2e;
+    margin-bottom: 10px;
+    padding-left: 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .tb-section p {
+    font-size: 0.88rem;
+    line-height: 1.9;
+    color: #333;
+    padding-left: 24px;
+    margin-bottom: 16px;
+  }
+  .tb-img-block {
+    background: #e8fdf0;
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+    margin: 16px 24px 16px;
+    border: 1px solid #b7f5c8;
+  }
+  .tb-lifecycle-svg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .tb-stage {
+    text-align: center;
+    padding: 10px;
+  }
+  .tb-stage-emoji { font-size: 2.4rem; display: block; }
+  .tb-stage-name {
+    font-family: 'Jua', sans-serif;
+    font-size: 0.78rem;
+    color: var(--green-dark);
+    margin-top: 4px;
+  }
+  .tb-stage-arrow { font-size: 1.4rem; color: var(--green); padding-top: 14px; }
+  .highlight-box {
+    background: #fff9e6;
+    border: 2px solid #f1c40f;
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin: 12px 24px;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: #333;
+  }
+  .highlight-box strong { color: #e67e22; }
+  .vocab-sidebar h3 { font-family: 'Jua', sans-serif; font-size: 1rem; color: var(--text); margin-bottom: 14px; }
+  .vocab-item {
+    background: #fff;
+    border-radius: 14px;
+    padding: 14px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    border-top: 3px solid var(--green);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .vocab-item:hover { transform: translateX(4px); box-shadow: var(--shadow); }
+  .vocab-item h4 { font-family: 'Jua', sans-serif; font-size: 0.9rem; color: var(--green-dark); margin-bottom: 4px; }
+  .vocab-item p { font-size: 0.76rem; color: #666; line-height: 1.5; }
+  .vocab-item.orange { border-top-color: var(--orange); }
+  .vocab-item.orange h4 { color: var(--orange); }
+  .vocab-item.blue { border-top-color: var(--blue); }
+  .vocab-item.blue h4 { color: var(--blue); }
+  .vocab-item.purple { border-top-color: var(--purple); }
+  .vocab-item.purple h4 { color: var(--purple); }
+  .quiz-quick {
+    margin-top: 14px;
+    background: linear-gradient(135deg, #e8fdf0, #fff);
+    border: 2px solid #b7f5c8;
+    border-radius: 14px;
+    padding: 16px;
+  }
+  .quiz-quick h3 { font-family: 'Jua', sans-serif; font-size: 0.9rem; color: var(--green-dark); margin-bottom: 10px; }
+  .quiz-opt {
+    background: #fff;
+    border: 1.5px solid #ddd;
+    border-radius: 10px;
+    padding: 8px 12px;
+    margin-bottom: 6px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Nanum Gothic', sans-serif;
+  }
+  .quiz-opt:hover { border-color: var(--green); background: #e8fdf0; }
+  .quiz-opt.correct { border-color: var(--green); background: #e8fdf0; color: var(--green-dark); font-weight: 700; }
+  .quiz-opt.wrong { border-color: #e74c3c; background: #ffeee8; color: #e74c3c; }
+
+  /* ===== FOOTER ===== */
+  .platform-footer {
+    background: #1a2e1a;
+    color: rgba(255,255,255,0.7);
+    text-align: center;
+    padding: 24px;
+    font-size: 0.78rem;
+    line-height: 1.7;
+  }
+  .platform-footer strong { color: var(--green); }
+  .access-bar {
+    background: #fff;
+    border-top: 2px solid #b7f5c8;
+    padding: 12px 32px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 0.78rem;
+    color: #666;
+  }
+  .access-chip {
+    background: #f0fdf4;
+    border: 1px solid #b7f5c8;
+    border-radius: 50px;
+    padding: 4px 14px;
+    font-family: 'Jua', sans-serif;
+    color: var(--green-dark);
+    font-size: 0.75rem;
+  }
+
+  /* ===== TOAST ===== */
+  .toast {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--green-dark);
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-family: 'Jua', sans-serif;
+    font-size: 1rem;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 999;
+    white-space: nowrap;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ===== TEACHER MANUAL BANNER ===== */
+  .teacher-manual-banner {
+    background: linear-gradient(135deg, #fff5e6 0%, #fff 100%);
+    border: 2px solid #f0a500;
+    border-radius: 20px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: all 0.25s;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 16px rgba(230,126,34,0.1);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .teacher-manual-banner:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(230,126,34,0.18);
+    border-color: #e67e22;
+  }
+  .tm-left { display: flex; align-items: center; gap: 18px; }
+  .tm-icon { font-size: 2.8rem; }
+  .tm-title {
+    font-family: 'Jua', sans-serif;
+    font-size: 1.15rem;
+    color: #b45309;
+    margin-bottom: 4px;
+  }
+  .tm-desc { font-size: 0.78rem; color: #888; }
+  .tm-btn {
+    background: linear-gradient(135deg, #e67e22, #f1c40f);
+    color: #fff;
+    padding: 10px 22px;
+    border-radius: 50px;
+    font-family: 'Jua', sans-serif;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(230,126,34,0.3);
+    transition: all 0.2s;
+  }
+  .teacher-manual-banner:hover .tm-btn { transform: scale(1.05); }
+
+  .tm-quick-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 18px 16px;
+    cursor: pointer;
+    transition: all 0.22s;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+    border: 2px solid transparent;
+    text-align: center;
+    border-top: 4px solid #e67e22;
+  }
+  .tm-quick-card:hover {
+    border-color: #e67e22;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(230,126,34,0.15);
+  }
+  .tm-qc-icon { font-size: 1.8rem; display: block; margin-bottom: 8px; }
+  .tm-quick-card h4 { font-family: 'Jua', sans-serif; font-size: 0.9rem; color: #b45309; margin-bottom: 4px; }
+  .tm-quick-card p { font-size: 0.73rem; color: #888; }
+
+  /* ===== MANUAL MODAL ===== */
+  .manual-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 500;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    backdrop-filter: blur(4px);
+  }
+  .manual-overlay.open { display: flex; animation: fadeIn 0.25s ease; }
+  .manual-modal {
+    background: #fff;
+    border-radius: 28px;
+    width: 100%;
+    max-width: 820px;
+    max-height: 88vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.25);
+    overflow: hidden;
+  }
+  .manual-header {
+    background: linear-gradient(135deg, #b45309 0%, #e67e22 60%, #f1c40f 100%);
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .manual-header-left { display: flex; align-items: center; gap: 14px; }
+  .manual-header-icon { font-size: 2.2rem; }
+  .manual-title {
+    font-family: 'Jua', sans-serif;
+    font-size: 1.3rem;
+    color: #fff;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  }
+  .manual-subtitle { font-size: 0.75rem; color: rgba(255,255,255,0.85); }
+  .manual-close {
+    background: rgba(255,255,255,0.25);
+    border: none;
+    color: #fff;
+    font-size: 1.2rem;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .manual-close:hover { background: rgba(255,255,255,0.45); }
+  .manual-tabs {
+    display: flex;
+    gap: 0;
+    background: #fafafa;
+    border-bottom: 2px solid #e8e8e8;
+    padding: 0 20px;
+    overflow-x: auto;
+  }
+  .mtab {
+    background: none;
+    border: none;
+    padding: 14px 20px;
+    font-family: 'Jua', sans-serif;
+    font-size: 0.88rem;
+    color: #888;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .mtab:hover { color: #e67e22; }
+  .mtab.active { color: #e67e22; border-bottom-color: #e67e22; }
+  .manual-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 28px 32px;
+  }
+  .mtab-content { display: none; }
+  .mtab-content.active { display: block; animation: fadeIn 0.25s ease; }
+  .mc-title {
+    font-family: 'Jua', sans-serif;
+    font-size: 1.15rem;
+    color: #1a2e1a;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #f0f0f0;
+  }
+  .mc-box {
+    border-radius: 12px;
+    padding: 14px 18px;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    margin-bottom: 14px;
+    color: #333;
+  }
+  .mc-box.blue { background: #eef5fd; border-left: 4px solid #3498db; }
+  .mc-box.green { background: #e8fdf0; border-left: 4px solid #2ecc71; }
+  .mc-box.orange { background: #fff5e6; border-left: 4px solid #e67e22; }
+  .mc-flow {
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+    margin: 18px 0;
+    flex-wrap: wrap;
+  }
+  .mc-flow-item {
+    background: #f8f9fa;
+    border-radius: 14px;
+    padding: 16px;
+    flex: 1;
+    min-width: 140px;
+    font-size: 0.82rem;
+    color: #444;
+    line-height: 1.5;
+  }
+  .mc-flow-num {
+    background: #e67e22;
+    color: #fff;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Jua', sans-serif;
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+  }
+  .mc-flow-arrow { color: #e67e22; font-size: 1.6rem; align-self: center; }
+  .mc-table {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #e8e8e8;
+    font-size: 0.83rem;
+  }
+  .mc-tr { display: grid; grid-template-columns: 1fr 2fr; }
+  .mc-tr span { padding: 10px 16px; border-bottom: 1px solid #f0f0f0; }
+  .mc-tr span:first-child { background: #f8f9fa; font-weight: 700; color: #555; }
+  .mc-th span { background: #e67e22 !important; color: #fff !important; font-family: 'Jua', sans-serif; }
+  .mc-menu-item {
+    display: flex;
+    gap: 16px;
+    background: #fafafa;
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 12px;
+    align-items: flex-start;
+    font-size: 0.83rem;
+    line-height: 1.6;
+    color: #444;
+    border: 1px solid #eee;
+    transition: all 0.2s;
+  }
+  .mc-menu-item:hover { background: #f0fdf4; border-color: #b7f5c8; }
+  .mc-menu-item strong { font-family: 'Jua', sans-serif; color: #1a2e1a; font-size: 0.92rem; display: block; margin-bottom: 4px; }
+  .mc-menu-item em { color: #e67e22; font-style: normal; font-weight: 700; }
+  .mc-menu-icon {
+    width: 48px; height: 48px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem;
+    flex-shrink: 0;
+  }
+  .mc-tip {
+    display: flex;
+    gap: 14px;
+    background: #fffef5;
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 12px;
+    border: 1px solid #f1c40f;
+    font-size: 0.83rem;
+    line-height: 1.6;
+    color: #444;
+    align-items: flex-start;
+  }
+  .mc-tip-num {
+    background: #f1c40f;
+    color: #7a5700;
+    padding: 4px 10px;
+    border-radius: 50px;
+    font-family: 'Jua', sans-serif;
+    font-size: 0.78rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .mc-udl-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 14px;
+    margin: 16px 0;
+  }
+  .mc-udl-card {
+    background: #fafafa;
+    border-radius: 14px;
+    padding: 18px;
+    font-size: 0.82rem;
+    color: #444;
+    line-height: 1.6;
+  }
+  .mc-udl-card strong { font-family: 'Jua', sans-serif; color: #1a2e1a; display: block; margin-bottom: 8px; }
+  .mc-udl-icon { font-size: 1.8rem; margin-bottom: 8px; display: block; }
+  .mc-udl-card ul { padding-left: 16px; }
+  .mc-udl-card ul li { margin-bottom: 4px; }
+  .mc-eval-item {
+    display: flex;
+    gap: 14px;
+    background: #fafafa;
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 12px;
+    font-size: 0.83rem;
+    line-height: 1.6;
+    color: #444;
+    align-items: flex-start;
+    border: 1px solid #eee;
+  }
+  .mc-eval-tag {
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-family: 'Jua', sans-serif;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* ===== PROGRESS BAR ===== */
+  .progress-bar-outer {
+    background: #e0f5e9;
+    border-radius: 50px;
+    height: 8px;
+    margin: 12px 0 0;
+    overflow: hidden;
+  }
+  .progress-bar-inner {
+    height: 100%;
+    background: linear-gradient(90deg, var(--green), #1abc9c);
+    border-radius: 50px;
+    transition: width 0.5s;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div>
+      <div class="logo"><span>🦋</span> 동물의 한살이 플랫폼</div>
+      <div class="subtitle">4학년 1학기 과학 · 모두를 위한 통합 학습</div>
+    </div>
+    <nav>
+      <button onclick="showPanel('home')" id="nav-home" class="active">🏠 홈</button>
+      <button onclick="showPanel('ar')" id="nav-ar">🔭 AR</button>
+      <button onclick="showPanel('drag')" id="nav-drag">🧩 순서맞추기</button>
+      <button onclick="showPanel('media')" id="nav-media">📺 미디어</button>
+      <button onclick="showPanel('camera')" id="nav-camera">📷 카메라</button>
+      <button onclick="showPanel('voice')" id="nav-voice">🎙️ 음성</button>
+      <button onclick="showPanel('text')" id="nav-text">📖 교과서</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ===== HOME PANEL ===== -->
+<div id="panel-home" class="panel active">
+  <div class="hero">
+    <div class="hero-text">
+      <h1>🐛 동물의 한살이를<br>탐험해 봐요!</h1>
+      <p>나비, 개구리, 닭… 동물들은 태어나서 자라고 새 생명을 낳습니다.<br>
+         다양한 방법으로 <strong>동물의 한살이</strong>를 배워볼까요?</p>
+      <div class="hero-tags">
+        <span class="tag">4학년 1학기</span>
+        <span class="tag blue">과학 3단원</span>
+        <span class="tag orange">UDL 통합교육</span>
+        <span class="tag purple">모두를 위한 설계</span>
+      </div>
+      <div class="progress-bar-outer">
+        <div class="progress-bar-inner" id="mainProgress" style="width:0%"></div>
+      </div>
+      <p style="font-size:0.75rem;color:#888;margin-top:4px;">학습 진행도: <span id="progressText">0</span>%</p>
+    </div>
+    <div class="hero-anim">
+      <div class="cycle-anim">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <style>
+              .orb { animation: orbit 6s linear infinite; transform-origin: 100px 100px; }
+              .orb2 { animation: orbit 6s linear infinite 1.5s; transform-origin: 100px 100px; }
+              .orb3 { animation: orbit 6s linear infinite 3s; transform-origin: 100px 100px; }
+              .orb4 { animation: orbit 6s linear infinite 4.5s; transform-origin: 100px 100px; }
+              @keyframes orbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+            </style>
+          </defs>
+          <circle cx="100" cy="100" r="55" fill="none" stroke="#b7f5c8" stroke-width="2" stroke-dasharray="8 4"/>
+          <text class="orb" x="100" y="52" text-anchor="middle" font-size="22">🥚</text>
+          <text class="orb2" x="100" y="52" text-anchor="middle" font-size="22">🐛</text>
+          <text class="orb3" x="100" y="52" text-anchor="middle" font-size="22">🫘</text>
+          <text class="orb4" x="100" y="52" text-anchor="middle" font-size="22">🦋</text>
+          <text x="100" y="108" text-anchor="middle" font-size="34">🦋</text>
+          <text x="100" y="122" text-anchor="middle" font-size="11" fill="#2ecc71" font-family="sans-serif">한살이</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- learning goals — 학습 목표를 먼저 배치 -->
+  <div class="section-header">
+    <h2>🎯 이번 시간 학습 목표</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-bottom:36px;">
+    <div class="info-card" style="border-top-color:#3498db;">
+      <div class="ic-emoji">🔍</div>
+      <h4>알기</h4>
+      <p>동물의 한살이 뜻을 이해하고 나비의 4단계를 말할 수 있어요.</p>
+    </div>
+    <div class="info-card" style="border-top-color:#e67e22;">
+      <div class="ic-emoji">🔬</div>
+      <h4>탐구하기</h4>
+      <p>나비와 개구리의 한살이를 비교하고 차이점을 찾을 수 있어요.</p>
+    </div>
+    <div class="info-card" style="border-top-color:#9b59b6;">
+      <div class="ic-emoji">🤝</div>
+      <h4>느끼기</h4>
+      <p>생명의 소중함과 성장의 신비로움을 느낄 수 있어요.</p>
+    </div>
+    <div class="info-card" style="border-top-color:var(--green);">
+      <div class="ic-emoji">✏️</div>
+      <h4>표현하기</h4>
+      <p>배운 내용을 그림, 말, 글로 다양하게 표현할 수 있어요.</p>
+    </div>
+  </div>
+
+  <!-- 학습 메뉴 — 학습 목표 아래로 이동 -->
+  <div class="section-header">
+    <h2>📚 학습 메뉴</h2>
+    <span class="section-badge">6가지 학습 방법</span>
+  </div>
+  <div class="menu-grid">
+    <div class="menu-card ar" onclick="showPanel('ar')">
+      <div class="menu-icon">🔭</div>
+      <h3>AR 증강현실</h3>
+      <p>나비의 한살이를 3D로 직접 살펴봐요</p>
+    </div>
+    <div class="menu-card drag" onclick="showPanel('drag')">
+      <div class="menu-icon">🧩</div>
+      <h3>드래그앤드랍</h3>
+      <p>한살이 순서를 맞춰 배치해 봐요</p>
+    </div>
+    <div class="menu-card media" onclick="showPanel('media')">
+      <div class="menu-icon">📺</div>
+      <h3>멀티미디어</h3>
+      <p>유튜브 영상으로 생생하게 배워요</p>
+    </div>
+    <div class="menu-card camera" onclick="showPanel('camera')">
+      <div class="menu-icon">📷</div>
+      <h3>카메라 활동</h3>
+      <p>직접 찍은 사진으로 관찰일지 작성</p>
+    </div>
+    <div class="menu-card voice" onclick="showPanel('voice')">
+      <div class="menu-icon">🎙️</div>
+      <h3>음성 학습</h3>
+      <p>말하고 듣는 방식으로 배워요</p>
+    </div>
+    <div class="menu-card text" onclick="showPanel('text')">
+      <div class="menu-icon">📖</div>
+      <h3>교과서 보기</h3>
+      <p>텍스트와 그림으로 내용 정리</p>
+    </div>
+  </div>
+
+  <!-- 교사 메뉴얼 섹션 -->
+  <div class="section-header">
+    <h2>👩‍🏫 교사 메뉴얼</h2>
+    <span class="section-badge" style="background:#e67e22;">교사 전용</span>
+  </div>
+  <div class="teacher-manual-banner" onclick="openManual()">
+    <div class="tm-left">
+      <div class="tm-icon">📋</div>
+      <div>
+        <div class="tm-title">플랫폼 활용 교사 메뉴얼</div>
+        <div class="tm-desc">각 메뉴 활용법 · 수업 진행 팁 · UDL 적용 가이드 · 평가 방법</div>
+      </div>
+    </div>
+    <div class="tm-btn">메뉴얼 열기 →</div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:32px;">
+    <div class="tm-quick-card" onclick="openManualTab('overview')">
+      <span class="tm-qc-icon">🗺️</span>
+      <h4>플랫폼 개요</h4>
+      <p>전체 구성 및 활용 흐름</p>
+    </div>
+    <div class="tm-quick-card" onclick="openManualTab('menus')">
+      <span class="tm-qc-icon">📌</span>
+      <h4>메뉴별 설명</h4>
+      <p>각 기능 상세 안내</p>
+    </div>
+    <div class="tm-quick-card" onclick="openManualTab('tips')">
+      <span class="tm-qc-icon">💡</span>
+      <h4>수업 팁</h4>
+      <p>효과적인 수업 운영법</p>
+    </div>
+    <div class="tm-quick-card" onclick="openManualTab('udl')">
+      <span class="tm-qc-icon">♿</span>
+      <h4>UDL 가이드</h4>
+      <p>통합교육 적용 방법</p>
+    </div>
+    <div class="tm-quick-card" onclick="openManualTab('eval')">
+      <span class="tm-qc-icon">📊</span>
+      <h4>평가 방법</h4>
+      <p>다양한 평가 아이디어</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 교사 메뉴얼 팝업 모달 ===== -->
+<div id="manualOverlay" class="manual-overlay" onclick="closeManualIfOutside(event)">
+  <div class="manual-modal">
+    <div class="manual-header">
+      <div class="manual-header-left">
+        <span class="manual-header-icon">📋</span>
+        <div>
+          <div class="manual-title">교사 메뉴얼</div>
+          <div class="manual-subtitle">동물의 한살이 UDL 통합 학습 플랫폼</div>
+        </div>
+      </div>
+      <button class="manual-close" onclick="closeManual()">✕</button>
+    </div>
+    <div class="manual-tabs">
+      <button class="mtab active" onclick="switchTab('overview')" id="mtab-overview">🗺️ 개요</button>
+      <button class="mtab" onclick="switchTab('menus')" id="mtab-menus">📌 메뉴설명</button>
+      <button class="mtab" onclick="switchTab('tips')" id="mtab-tips">💡 수업팁</button>
+      <button class="mtab" onclick="switchTab('udl')" id="mtab-udl">♿ UDL</button>
+      <button class="mtab" onclick="switchTab('eval')" id="mtab-eval">📊 평가</button>
+    </div>
+    <div class="manual-body">
+
+      <!-- 개요 탭 -->
+      <div class="mtab-content active" id="mcontent-overview">
+        <h3 class="mc-title">🗺️ 플랫폼 전체 개요</h3>
+        <div class="mc-box blue">
+          <strong>📌 수업 대상</strong> 초등학교 4학년 1학기 과학 3단원 「동물의 한살이」 1차시
+        </div>
+        <div class="mc-flow">
+          <div class="mc-flow-item">
+            <div class="mc-flow-num">1</div>
+            <div><strong>도입 (5분)</strong><br>홈 화면 학습 목표 확인 → 영상 예고</div>
+          </div>
+          <div class="mc-flow-arrow">→</div>
+          <div class="mc-flow-item">
+            <div class="mc-flow-num">2</div>
+            <div><strong>전개 (30분)</strong><br>AR · 미디어 · 교과서 → 드래그앤드랍 활동</div>
+          </div>
+          <div class="mc-flow-arrow">→</div>
+          <div class="mc-flow-item">
+            <div class="mc-flow-num">3</div>
+            <div><strong>정리 (10분)</strong><br>음성 퀴즈 · 카메라 관찰일지 작성</div>
+          </div>
+        </div>
+        <div class="mc-box green">
+          <strong>💻 권장 환경</strong> Chrome 브라우저 · 인터넷 연결 필수 (유튜브) · 마이크/카메라 허용
+        </div>
+        <div class="mc-box orange">
+          <strong>👥 운영 방식</strong> 개인 태블릿 또는 모둠 PC 활용 가능. 특수교육 대상 학생은 음성/카메라 메뉴 우선 권장
+        </div>
+        <h3 class="mc-title" style="margin-top:20px;">📂 파일 구성</h3>
+        <div class="mc-table">
+          <div class="mc-tr mc-th"><span>항목</span><span>내용</span></div>
+          <div class="mc-tr"><span>파일 형식</span><span>단일 HTML 파일 (설치 불필요)</span></div>
+          <div class="mc-tr"><span>필요 권한</span><span>카메라, 마이크 (선택)</span></div>
+          <div class="mc-tr"><span>오프라인</span><span>부분 가능 (유튜브 제외)</span></div>
+          <div class="mc-tr"><span>저장 방식</span><span>사진 캡처 후 로컬 저장</span></div>
+        </div>
+      </div>
+
+      <!-- 메뉴설명 탭 -->
+      <div class="mtab-content" id="mcontent-menus">
+        <h3 class="mc-title">📌 메뉴별 상세 설명</h3>
+        <div class="mc-menu-item">
+          <div class="mc-menu-icon" style="background:linear-gradient(135deg,#e91e8c,#9b59b6);">🔭</div>
+          <div>
+            <strong>AR 증강현실</strong>
+            <p>나비 한살이 4단계(알·애벌레·번데기·나비)를 인터랙티브 3D 뷰어로 탐색합니다. 단계 버튼 또는 화면 탭으로 전환. 정보 패널 토글 가능. <em>→ 도입·전개 초반 사용 권장</em></p>
+          </div>
+        </div>
+        <div class="mc-menu-item">
+          <div class="mc-menu-icon" style="background:linear-gradient(135deg,#f39c12,#f1c40f);">🧩</div>
+          <div>
+            <strong>드래그앤드랍 순서 맞추기</strong>
+            <p>나비·개구리 한살이 카드를 올바른 순서로 드래그합니다. 정답 확인 및 리셋 가능. 모둠 활동 또는 개인 형성평가로 활용. <em>→ 전개 중반 활동용</em></p>
+          </div>
+        </div>
+        <div class="mc-menu-item">
+          <div class="mc-menu-icon" style="background:linear-gradient(135deg,#3498db,#2ecc71);">📺</div>
+          <div>
+            <strong>멀티미디어 (유튜브)</strong>
+            <p>나비·개구리·닭·총정리 영상 4편 선택 재생. 개념 정보카드 4종 제공. 교사가 전체 화면으로 띄워 설명하거나 학생이 개별 시청. <em>→ 전개 영상 자료 활용</em></p>
+          </div>
+        </div>
+        <div class="mc-menu-item">
+          <div class="mc-menu-icon" style="background:linear-gradient(135deg,#e74c3c,#e67e22);">📷</div>
+          <div>
+            <strong>카메라 활동</strong>
+            <p>웹캠으로 직접 촬영하거나 파일 업로드로 관찰 갤러리 구성. 학생이 직접 관찰한 곤충·식물 사진 기록 가능. 교사도 수업 자료 사진 업로드 가능. <em>→ 정리·관찰일지 작성</em></p>
+          </div>
+        </div>
+        <div class="mc-menu-item">
+          <div class="mc-menu-icon" style="background:linear-gradient(135deg,#9b59b6,#3498db);">🎙️</div>
+          <div>
+            <strong>음성 학습</strong>
+            <p>마이크로 말하기(STT) + 스피커로 듣기(TTS) 동시 지원. 질문 4개 선택 → 음성으로 답변. 나비·개구리·닭 설명 TTS 버튼 제공. <em>→ 정리 구술 평가·AAC 대안</em></p>
+          </div>
+        </div>
+        <div class="mc-menu-item">
+          <div class="mc-menu-icon" style="background:linear-gradient(135deg,#2ecc71,#1abc9c);">📖</div>
+          <div>
+            <strong>교과서 보기</strong>
+            <p>교과서 74~75p 내용 텍스트+그림 형식 제공. 핵심 낱말(한살이·완전변태·불완전변태·탈바꿈) 사이드바. 미니 퀴즈 내장. <em>→ 전개 개념 정리용</em></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 수업팁 탭 -->
+      <div class="mtab-content" id="mcontent-tips">
+        <h3 class="mc-title">💡 효과적인 수업 운영 팁</h3>
+        <div class="mc-tip">
+          <div class="mc-tip-num">TIP 1</div>
+          <div><strong>수업 시작 전 Chrome 브라우저 확인</strong><br>
+          음성인식(STT)과 카메라는 Chrome에서만 완전히 작동합니다. 수업 전 브라우저와 마이크·카메라 권한을 미리 허용해두세요.</div>
+        </div>
+        <div class="mc-tip">
+          <div class="mc-tip-num">TIP 2</div>
+          <div><strong>AR → 교과서 → 드래그앤드랍 순서 권장</strong><br>
+          AR로 흥미를 유발한 뒤 교과서로 개념을 정리하고, 드래그앤드랍으로 형성평가를 진행하면 학습 흐름이 자연스럽습니다.</div>
+        </div>
+        <div class="mc-tip">
+          <div class="mc-tip-num">TIP 3</div>
+          <div><strong>드래그앤드랍 모둠 대항전 활용</strong><br>
+          나비 한살이와 개구리 한살이를 각각 다른 모둠이 먼저 완성하는 미션으로 운영하면 학생 참여도가 높아집니다.</div>
+        </div>
+        <div class="mc-tip">
+          <div class="mc-tip-num">TIP 4</div>
+          <div><strong>카메라로 수업 결과물 수집</strong><br>
+          학생이 손으로 그린 한살이 그림, 관찰일지 등을 카메라로 찍어 갤러리에 올리면 포트폴리오 평가 자료로 활용할 수 있습니다.</div>
+        </div>
+        <div class="mc-tip">
+          <div class="mc-tip-num">TIP 5</div>
+          <div><strong>TTS로 내용 읽어주기</strong><br>
+          읽기가 어려운 학생은 음성 메뉴의 TTS 버튼을 활용하면 학습 내용을 귀로 들을 수 있습니다. 교사가 미리 어떤 버튼인지 안내해두세요.</div>
+        </div>
+        <div class="mc-tip">
+          <div class="mc-tip-num">TIP 6</div>
+          <div><strong>진행도 바 활용</strong><br>
+          홈 화면의 학습 진행도 바는 학생이 몇 가지 메뉴를 방문했는지 보여줍니다. 모든 메뉴를 탐색하도록 독려하는 데 활용할 수 있어요.</div>
+        </div>
+      </div>
+
+      <!-- UDL 탭 -->
+      <div class="mtab-content" id="mcontent-udl">
+        <h3 class="mc-title">♿ UDL 통합교육 적용 가이드</h3>
+        <div class="mc-box blue">
+          <strong>UDL(Universal Design for Learning)</strong>이란 모든 학생이 동등하게 학습에 참여할 수 있도록 다양한 표현·참여·행동 방식을 제공하는 교육 설계 원칙입니다.
+        </div>
+        <div class="mc-udl-grid">
+          <div class="mc-udl-card" style="border-top:4px solid #3498db;">
+            <div class="mc-udl-icon">👁️</div>
+            <strong>다양한 표현 수단</strong>
+            <ul>
+              <li>텍스트 + 이미지 + 영상 동시 제공</li>
+              <li>TTS로 내용 음성 출력</li>
+              <li>AR로 시각적 체험 제공</li>
+            </ul>
+          </div>
+          <div class="mc-udl-card" style="border-top:4px solid #2ecc71;">
+            <div class="mc-udl-icon">🖐️</div>
+            <strong>다양한 행동·표현</strong>
+            <ul>
+              <li>드래그앤드랍 (손가락/마우스)</li>
+              <li>음성으로 답하기 (STT)</li>
+              <li>사진 찍거나 업로드</li>
+            </ul>
+          </div>
+          <div class="mc-udl-card" style="border-top:4px solid #e67e22;">
+            <div class="mc-udl-icon">❤️</div>
+            <strong>다양한 참여 방법</strong>
+            <ul>
+              <li>개인 / 모둠 선택 가능</li>
+              <li>즉각 피드백 (정답 확인)</li>
+              <li>진행도 바로 성취감 제공</li>
+            </ul>
+          </div>
+        </div>
+        <div class="mc-box orange" style="margin-top:16px;">
+          <strong>💡 특수교육 대상 학생 지원 포인트</strong><br>
+          읽기 어려움 → TTS 활용 / 쓰기 어려움 → 음성입력 활용 / 소근육 어려움 → 터치 드래그 or 클릭으로 대체 / 집중 어려움 → AR 단계별 전환으로 짧게 집중
+        </div>
+      </div>
+
+      <!-- 평가 탭 -->
+      <div class="mtab-content" id="mcontent-eval">
+        <h3 class="mc-title">📊 다양한 평가 방법</h3>
+        <div class="mc-eval-item">
+          <div class="mc-eval-tag" style="background:#3498db;">형성평가</div>
+          <div>
+            <strong>드래그앤드랍 순서 맞추기</strong><br>
+            나비·개구리 한살이 카드 순서 배치 결과를 교사가 순회하며 확인. 즉각 정오 피드백 제공.
+          </div>
+        </div>
+        <div class="mc-eval-item">
+          <div class="mc-eval-tag" style="background:#2ecc71;">구술평가</div>
+          <div>
+            <strong>음성 메뉴 질문 답변</strong><br>
+            4가지 질문 중 선택하여 마이크로 답변. STT 텍스트를 교사가 확인하거나 학생이 직접 읽어줌.
+          </div>
+        </div>
+        <div class="mc-eval-item">
+          <div class="mc-eval-tag" style="background:#e67e22;">포트폴리오</div>
+          <div>
+            <strong>카메라 관찰 갤러리</strong><br>
+            학생이 찍은 사진, 손그림, 관찰일지를 갤러리에 모아 수업 결과물로 제출.
+          </div>
+        </div>
+        <div class="mc-eval-item">
+          <div class="mc-eval-tag" style="background:#9b59b6;">지필평가</div>
+          <div>
+            <strong>교과서 미니 퀴즈</strong><br>
+            교과서 메뉴 내 4지선다 퀴즈. 정오 즉각 피드백. 추가 문항은 교사가 구두로 제시 가능.
+          </div>
+        </div>
+        <div class="mc-box green" style="margin-top:16px;">
+          <strong>📝 평가 팁</strong> 학습 진행도 바(홈 화면)를 통해 학생이 몇 가지 메뉴를 방문했는지 확인하고, 참여도 평가 자료로 활용할 수 있어요.
+        </div>
+      </div>
+
+    </div><!-- manual-body end -->
+  </div><!-- manual-modal end -->
+</div><!-- manualOverlay end -->
+
+<!-- ===== AR PANEL ===== -->
+<div id="panel-ar" class="panel">
+  <button class="back-btn" onclick="showPanel('home')">← 홈으로</button>
+  <div class="section-header">
+    <h2>🔭 AR 증강현실 체험</h2>
+    <span class="section-badge">나비의 한살이</span>
+  </div>
+  <div class="ar-container">
+    <div class="ar-viewport">
+      <div class="ar-grid"></div>
+      <div class="ar-scan-frame">
+        <div class="scan-line"></div>
+      </div>
+      <div class="ar-info-card">
+        <h4>📌 현재 단계</h4>
+        <span id="arStageText">나비 🦋</span>
+        <hr style="border-color:rgba(255,255,255,0.2);margin:8px 0;">
+        <span id="arDesc">완전히 자란 나비예요. 날개를 펴고 꽃의 꿀을 마십니다. 알을 낳아 새 생명을 시작해요.</span>
+      </div>
+      <div class="ar-creature" onclick="nextArStage()">
+        <span class="ar-emoji" id="arEmoji">🦋</span>
+        <div class="ar-label" id="arLabel">탭하여 다음 단계로!</div>
+      </div>
+    </div>
+    <div class="ar-controls">
+      <button class="ar-btn active" onclick="setArStage(0)" id="arBtn0">🥚 알</button>
+      <button class="ar-btn" onclick="setArStage(1)" id="arBtn1">🐛 애벌레</button>
+      <button class="ar-btn" onclick="setArStage(2)" id="arBtn2">🫘 번데기</button>
+      <button class="ar-btn" onclick="setArStage(3)" id="arBtn3">🦋 나비</button>
+      <button class="ar-btn" onclick="toggleArInfo()" id="arInfoBtn">ℹ️ 정보 패널</button>
+      <button class="ar-btn" onclick="showToast('📸 AR 화면이 저장되었어요!')">💾 저장</button>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px;">
+    <div class="info-card" onclick="setArStage(0)" style="cursor:pointer;text-align:center;border-top-color:#f1c40f;">
+      <div class="ic-emoji">🥚</div><h4>① 알</h4><p>나뭇잎 위에 아주 작고 동그란 알을 낳아요.</p>
+    </div>
+    <div class="info-card" onclick="setArStage(1)" style="cursor:pointer;text-align:center;border-top-color:#2ecc71;">
+      <div class="ic-emoji">🐛</div><h4>② 애벌레</h4><p>알에서 깨어난 애벌레는 잎을 먹으며 자라요.</p>
+    </div>
+    <div class="info-card" onclick="setArStage(2)" style="cursor:pointer;text-align:center;border-top-color:#9b59b6;">
+      <div class="ic-emoji">🫘</div><h4>③ 번데기</h4><p>껍질 속에서 조용히 몸이 변해가요.</p>
+    </div>
+    <div class="info-card" onclick="setArStage(3)" style="cursor:pointer;text-align:center;border-top-color:#e91e8c;">
+      <div class="ic-emoji">🦋</div><h4>④ 나비</h4><p>아름다운 날개를 펴고 하늘을 날아요!</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== DRAG DROP PANEL ===== -->
+<div id="panel-drag" class="panel">
+  <button class="back-btn" onclick="showPanel('home')">← 홈으로</button>
+  <div class="section-header">
+    <h2>🧩 한살이 순서 맞추기</h2>
+    <span class="section-badge">드래그앤드랍</span>
+  </div>
+  <div class="drag-stage">
+    <div class="drag-instruction">
+      📌 아래 카드를 드래그해서 <strong>나비의 한살이 순서</strong>에 맞게 놓아보세요!
+    </div>
+    <div class="lifecycle-track">
+      <div class="drop-zone" id="zone0" ondragover="dragOver(event,0)" ondrop="drop(event,0)" ondragleave="dragLeave(0)">
+        <span class="zone-label">① 첫 번째</span>
+      </div>
+      <span class="arrow-between">→</span>
+      <div class="drop-zone" id="zone1" ondragover="dragOver(event,1)" ondrop="drop(event,1)" ondragleave="dragLeave(1)">
+        <span class="zone-label">② 두 번째</span>
+      </div>
+      <span class="arrow-between">→</span>
+      <div class="drop-zone" id="zone2" ondragover="dragOver(event,2)" ondrop="drop(event,2)" ondragleave="dragLeave(2)">
+        <span class="zone-label">③ 세 번째</span>
+      </div>
+      <span class="arrow-between">→</span>
+      <div class="drop-zone" id="zone3" ondragover="dragOver(event,3)" ondrop="drop(event,3)" ondragleave="dragLeave(3)">
+        <span class="zone-label">④ 네 번째</span>
+      </div>
+    </div>
+    <h3 style="font-family:'Jua',sans-serif;color:#888;font-size:0.9rem;margin-bottom:12px;text-align:center;">▼ 카드를 드래그해서 위 칸에 넣어요</h3>
+    <div class="drag-cards" id="dragCards">
+      <div class="drag-card" draggable="true" id="card-butterfly"
+        ondragstart="dragStart(event,'butterfly')" ondragend="dragEnd(event)">
+        <span class="card-emoji">🦋</span>
+        <div class="card-name">나비</div>
+      </div>
+      <div class="drag-card" draggable="true" id="card-egg"
+        ondragstart="dragStart(event,'egg')" ondragend="dragEnd(event)">
+        <span class="card-emoji">🥚</span>
+        <div class="card-name">알</div>
+      </div>
+      <div class="drag-card" draggable="true" id="card-pupa"
+        ondragstart="dragStart(event,'pupa')" ondragend="dragEnd(event)">
+        <span class="card-emoji">🫘</span>
+        <div class="card-name">번데기</div>
+      </div>
+      <div class="drag-card" draggable="true" id="card-larva"
+        ondragstart="dragStart(event,'larva')" ondragend="dragEnd(event)">
+        <span class="card-emoji">🐛</span>
+        <div class="card-name">애벌레</div>
+      </div>
+    </div>
+    <div style="text-align:center;">
+      <button class="check-btn" onclick="checkOrder()">✅ 정답 확인!</button>
+      <button class="check-btn" style="background:#aaa;margin-left:10px;" onclick="resetDrag()">🔄 다시 하기</button>
+    </div>
+    <div class="drag-result" id="dragResult"></div>
+  </div>
+
+  <!-- Frog lifecycle bonus -->
+  <div style="margin-top:28px;">
+    <div class="section-header">
+      <h2>🐸 개구리의 한살이도 맞춰봐요!</h2>
+      <span class="section-badge" style="background:var(--blue);">도전!</span>
+    </div>
+    <div class="drag-stage">
+      <div class="drag-instruction" style="border-left-color:var(--blue);">
+        📌 개구리의 한살이는 나비와 어떻게 다를까요? 순서를 맞춰보세요!
+      </div>
+      <div class="lifecycle-track">
+        <div class="drop-zone" id="fzone0" ondragover="dragOver(event,'f0')" ondrop="drop(event,'f0')" ondragleave="dragLeave('f0')">
+          <span class="zone-label">① 첫 번째</span>
+        </div>
+        <span class="arrow-between">→</span>
+        <div class="drop-zone" id="fzone1" ondragover="dragOver(event,'f1')" ondrop="drop(event,'f1')" ondragleave="dragLeave('f1')">
+          <span class="zone-label">② 두 번째</span>
+        </div>
+        <span class="arrow-between">→</span>
+        <div class="drop-zone" id="fzone2" ondragover="dragOver(event,'f2')" ondrop="drop(event,'f2')" ondragleave="dragLeave('f2')">
+          <span class="zone-label">③ 세 번째</span>
+        </div>
+        <span class="arrow-between">→</span>
+        <div class="drop-zone" id="fzone3" ondragover="dragOver(event,'f3')" ondrop="drop(event,'f3')" ondragleave="dragLeave('f3')">
+          <span class="zone-label">④ 네 번째</span>
+        </div>
+      </div>
+      <div class="drag-cards" id="frogCards">
+        <div class="drag-card" draggable="true" id="fcard-tadpole"
+          ondragstart="dragStart(event,'ftadpole')" ondragend="dragEnd(event)">
+          <span class="card-emoji">🐟</span>
+          <div class="card-name">올챙이</div>
+        </div>
+        <div class="drag-card" draggable="true" id="fcard-fegg"
+          ondragstart="dragStart(event,'fegg')" ondragend="dragEnd(event)">
+          <span class="card-emoji">🫧</span>
+          <div class="card-name">알</div>
+        </div>
+        <div class="drag-card" draggable="true" id="fcard-frog"
+          ondragstart="dragStart(event,'ffrog')" ondragend="dragEnd(event)">
+          <span class="card-emoji">🐸</span>
+          <div class="card-name">개구리</div>
+        </div>
+        <div class="drag-card" draggable="true" id="fcard-legged"
+          ondragstart="dragStart(event,'flegged')" ondragend="dragEnd(event)">
+          <span class="card-emoji">🦎</span>
+          <div class="card-name">다리 난 올챙이</div>
+        </div>
+      </div>
+      <div style="text-align:center;">
+        <button class="check-btn" style="background:var(--blue);" onclick="checkFrogOrder()">✅ 정답 확인!</button>
+        <button class="check-btn" style="background:#aaa;margin-left:10px;" onclick="resetFrogDrag()">🔄 다시 하기</button>
+      </div>
+      <div class="drag-result" id="frogResult"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MEDIA PANEL ===== -->
+<div id="panel-media" class="panel">
+  <button class="back-btn" onclick="showPanel('home')">← 홈으로</button>
+  <div class="section-header">
+    <h2>📺 멀티미디어 자료</h2>
+    <span class="section-badge">유튜브 & 정보카드</span>
+  </div>
+  <div class="media-layout">
+    <div>
+      <div class="video-container" style="border-radius:20px 20px 0 0;">
+        <iframe id="mainVideo"
+          src="https://www.youtube.com/embed/An0CqjHMiMc"
+          title="나비의 한살이" allowfullscreen
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+        </iframe>
+      </div>
+      <div class="video-caption">
+        🦋 <strong id="videoTitle">나비의 한살이 (알→애벌레→번데기→나비)</strong> — EBS 초등 과학
+      </div>
+    </div>
+    <div class="media-sidebar">
+      <h3>📋 관련 영상 목록</h3>
+      <div class="media-list">
+        <div class="media-item active" onclick="changeVideo('An0CqjHMiMc','나비의 한살이')">
+          <div class="media-thumb">🦋</div>
+          <div class="media-info"><h4>나비의 한살이</h4><p>EBS 초등과학 · 8분</p></div>
+        </div>
+        <div class="media-item" onclick="changeVideo('nBGdN7m-BYo','개구리의 한살이')">
+          <div class="media-thumb">🐸</div>
+          <div class="media-info"><h4>개구리의 한살이</h4><p>자연관찰 영상 · 6분</p></div>
+        </div>
+        <div class="media-item" onclick="changeVideo('WY9WqF-J_vc','닭의 한살이')">
+          <div class="media-thumb">🐔</div>
+          <div class="media-info"><h4>닭의 한살이</h4><p>알에서 닭까지 · 5분</p></div>
+        </div>
+        <div class="media-item" onclick="changeVideo('7FRoTHMgBaI','동물의 한살이 총정리')">
+          <div class="media-thumb">📚</div>
+          <div class="media-info"><h4>한살이 총정리</h4><p>핵심 개념 정리 · 10분</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="media-below">
+    <div class="info-card">
+      <div class="ic-emoji">🦋</div>
+      <h4>완전변태</h4>
+      <p>나비·개미·벌처럼 알→애벌레→번데기→어른벌레 4단계를 거치는 변화예요.</p>
+    </div>
+    <div class="info-card" style="border-top-color:var(--blue);">
+      <div class="ic-emoji">🦗</div>
+      <h4>불완전변태</h4>
+      <p>메뚜기·잠자리처럼 번데기 과정 없이 알→애벌레→어른벌레로 변해요.</p>
+    </div>
+    <div class="info-card" style="border-top-color:var(--orange);">
+      <div class="ic-emoji">🐸</div>
+      <h4>양서류 변태</h4>
+      <p>개구리는 물속에서 알로 태어나 올챙이를 거쳐 육지에서 사는 개구리가 돼요.</p>
+    </div>
+    <div class="info-card" style="border-top-color:var(--purple);">
+      <div class="ic-emoji">🐣</div>
+      <h4>알 낳는 동물</h4>
+      <p>닭·오리·거북이 같이 알을 낳는 동물은 알에서 깨어나 어른이 될 때까지 자라요.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CAMERA PANEL ===== -->
+<div id="panel-camera" class="panel">
+  <button class="back-btn" onclick="showPanel('home')">← 홈으로</button>
+  <div class="section-header">
+    <h2>📷 카메라 관찰 활동</h2>
+    <span class="section-badge">직접 찍고 기록해요</span>
+  </div>
+  <div class="camera-layout">
+    <div>
+      <div class="camera-box">
+        <video id="cameraFeed" autoplay playsinline></video>
+        <div class="camera-placeholder" id="camPlaceholder">
+          <div class="cam-icon">📷</div>
+          <p style="font-family:'Jua',sans-serif;font-size:1.1rem;color:#fff;margin-bottom:8px;">카메라를 연결해요!</p>
+          <p>직접 관찰한 식물이나 곤충을<br>촬영해서 관찰일지를 만들어요.</p>
+        </div>
+        <div class="camera-overlay">
+          <button class="cam-btn" onclick="startCamera()">📷 카메라 시작</button>
+          <button class="cam-btn" onclick="capturePhoto()">📸 사진 찍기</button>
+          <button class="cam-btn red" onclick="stopCamera()">⏹ 카메라 끄기</button>
+        </div>
+      </div>
+    </div>
+    <div class="upload-zone" onclick="document.getElementById('fileInput').click()">
+      <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="handleUpload(event)" multiple>
+      <div class="up-icon">📁</div>
+      <h3>파일 업로드</h3>
+      <p>사진이나 그림 파일을<br>여기에 클릭해서 올려요!<br><br>
+      <strong style="color:var(--green);">학생 · 교사 모두 가능</strong><br>
+      관찰 사진, 그림 그린 것,<br>교과서 스캔 등 무엇이든 OK!</p>
+    </div>
+  </div>
+  <div style="margin-top:20px;">
+    <div class="section-header">
+      <h2>🖼️ 관찰 갤러리</h2>
+    </div>
+    <div class="upload-gallery" id="uploadGallery">
+      <div class="gallery-item">
+        <div class="placeholder-img">🥚</div>
+        <div>나비 알 관찰<br><span style="color:var(--green);font-size:0.7rem;">예시</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="placeholder-img">🐛</div>
+        <div>애벌레 관찰<br><span style="color:var(--green);font-size:0.7rem;">예시</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="placeholder-img">🌿</div>
+        <div>먹이 식물<br><span style="color:var(--green);font-size:0.7rem;">예시</span></div>
+      </div>
+    </div>
+  </div>
+  <canvas id="photoCanvas" style="display:none;"></canvas>
+</div>
+
+<!-- ===== VOICE PANEL ===== -->
+<div id="panel-voice" class="panel">
+  <button class="back-btn" onclick="showPanel('home')">← 홈으로</button>
+  <div class="section-header">
+    <h2>🎙️ 음성 학습 활동</h2>
+    <span class="section-badge">말하고 듣는 방식</span>
+  </div>
+  <div class="voice-main">
+    <div class="voice-mic-area">
+      <button class="mic-btn" id="micBtn" onclick="toggleMic()">🎙️</button>
+      <div class="mic-status" id="micStatus">마이크 버튼을 눌러주세요</div>
+      <div class="transcript-box" id="transcript">여기에 말한 내용이 나타나요...</div>
+      <div class="voice-controls-row" style="margin-top:12px;">
+        <button class="v-btn" onclick="readAloud('동물의 한살이란 동물이 태어나서 자라고 자손을 낳고 죽기까지의 과정입니다.')">🔊 TTS 듣기</button>
+        <button class="v-btn" onclick="clearTranscript()">🗑 지우기</button>
+      </div>
+    </div>
+    <div class="voice-answers">
+      <h3>🎯 말로 답해봐요!</h3>
+      <div class="q-item" id="q0" onclick="askQuestion(0)">
+        <h4>Q1. 나비의 한살이 4단계는?</h4>
+        <p>마이크 버튼을 누르고 말해보세요!</p>
+      </div>
+      <div class="q-item" id="q1" onclick="askQuestion(1)">
+        <h4>Q2. 번데기 시기에는 어떤 일이?</h4>
+        <p>마이크 버튼을 누르고 말해보세요!</p>
+      </div>
+      <div class="q-item" id="q2" onclick="askQuestion(2)">
+        <h4>Q3. 나비와 개구리의 차이점은?</h4>
+        <p>마이크 버튼을 누르고 말해보세요!</p>
+      </div>
+      <div class="q-item" id="q3" onclick="askQuestion(3)">
+        <h4>Q4. 동물의 한살이가 왜 중요할까?</h4>
+        <p>마이크 버튼을 누르고 말해보세요!</p>
+      </div>
+      <hr style="border-color:#e0f5e9;margin:14px 0;">
+      <h3>🔊 음성으로 설명 듣기</h3>
+      <div class="voice-controls-row" style="justify-content:flex-start;flex-wrap:wrap;">
+        <button class="v-btn" style="font-size:0.78rem;padding:8px 14px;" onclick="readAloud('나비의 한살이는 알, 애벌레, 번데기, 나비의 4단계예요.')">🦋 나비</button>
+        <button class="v-btn" style="font-size:0.78rem;padding:8px 14px;background:linear-gradient(135deg,#3498db,#2ecc71);" onclick="readAloud('개구리의 한살이는 알, 올챙이, 다리 난 올챙이, 개구리의 4단계예요.')">🐸 개구리</button>
+        <button class="v-btn" style="font-size:0.78rem;padding:8px 14px;background:linear-gradient(135deg,#e67e22,#f1c40f);" onclick="readAloud('닭의 한살이는 알, 병아리, 다 자란 닭의 3단계예요.')">🐔 닭</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TEXT PANEL ===== -->
+<div id="panel-text" class="panel">
+  <button class="back-btn" onclick="showPanel('home')">← 홈으로</button>
+  <div class="section-header">
+    <h2>📖 교과서 내용</h2>
+    <span class="section-badge">텍스트 & 그림 자료</span>
+  </div>
+  <div class="textbook-layout">
+    <div class="textbook-page">
+      <div class="tb-title">3. 동물의 한살이</div>
+      <div class="tb-subject">초등학교 4학년 1학기 과학 / 3단원 / 1차시</div>
+      <div class="tb-divider"></div>
+
+      <div class="tb-section">
+        <h3>🌱 한살이란 무엇일까요?</h3>
+        <p>동물이 <strong>태어나서</strong> → <strong>자라고</strong> → <strong>자손을 낳고</strong> → <strong>죽기까지</strong> 거치는 모든 과정을 <strong style="color:var(--green-dark);">한살이</strong>라고 합니다. 동물마다 한살이의 모습은 다르지만, 모두 생명이 이어진다는 공통점이 있어요.</p>
+      </div>
+
+      <div class="tb-img-block">
+        <div class="tb-lifecycle-svg">
+          <div class="tb-stage"><span class="tb-stage-emoji">🥚</span><div class="tb-stage-name">① 알</div></div>
+          <div class="tb-stage-arrow">→</div>
+          <div class="tb-stage"><span class="tb-stage-emoji">🐛</span><div class="tb-stage-name">② 애벌레</div></div>
+          <div class="tb-stage-arrow">→</div>
+          <div class="tb-stage"><span class="tb-stage-emoji">🫘</span><div class="tb-stage-name">③ 번데기</div></div>
+          <div class="tb-stage-arrow">→</div>
+          <div class="tb-stage"><span class="tb-stage-emoji">🦋</span><div class="tb-stage-name">④ 나비</div></div>
+        </div>
+        <p style="font-size:0.75rem;color:#666;margin-top:10px;">▲ 나비의 한살이 (완전변태)</p>
+      </div>
+
+      <div class="tb-section">
+        <h3>🦋 나비의 한살이</h3>
+        <p>나비는 <strong>완전변태</strong>를 하는 곤충이에요. 나뭇잎 위에 작은 알을 낳으면, 알에서 애벌레가 깨어납니다. 애벌레는 잎을 열심히 먹고 자라다가 번데기가 됩니다. 번데기 속에서 몸이 완전히 바뀌면 아름다운 나비로 탈바꿈해요!</p>
+      </div>
+
+      <div class="highlight-box">
+        💡 <strong>핵심 개념!</strong><br>
+        나비처럼 <strong>번데기 과정</strong>이 있는 변태를 <strong>완전변태</strong>라고 해요.<br>
+        메뚜기처럼 번데기 없이 자라는 것은 <strong>불완전변태</strong>예요.
+      </div>
+
+      <div class="tb-section" style="margin-top:16px;">
+        <h3>🐸 개구리의 한살이</h3>
+        <p>개구리는 물속에서 <strong>알</strong>을 낳아요. 알에서 물고기처럼 생긴 <strong>올챙이</strong>가 나오고, 올챙이에게 다리가 나면서 점점 <strong>개구리</strong>의 모습이 됩니다. 꼬리가 사라지면 완전한 개구리가 되어 육지에서도 살 수 있어요.</p>
+      </div>
+
+      <div class="tb-img-block" style="background:#eef5fd;border-color:#90caf9;">
+        <div class="tb-lifecycle-svg">
+          <div class="tb-stage"><span class="tb-stage-emoji">🫧</span><div class="tb-stage-name">① 알</div></div>
+          <div class="tb-stage-arrow" style="color:var(--blue);">→</div>
+          <div class="tb-stage"><span class="tb-stage-emoji">🐟</span><div class="tb-stage-name">② 올챙이</div></div>
+          <div class="tb-stage-arrow" style="color:var(--blue);">→</div>
+          <div class="tb-stage"><span class="tb-stage-emoji">🦎</span><div class="tb-stage-name">③ 다리 올챙이</div></div>
+          <div class="tb-stage-arrow" style="color:var(--blue);">→</div>
+          <div class="tb-stage"><span class="tb-stage-emoji">🐸</span><div class="tb-stage-name">④ 개구리</div></div>
+        </div>
+        <p style="font-size:0.75rem;color:#666;margin-top:10px;">▲ 개구리의 한살이</p>
+      </div>
+      <div class="page-num">74~75p</div>
+    </div>
+
+    <div>
+      <div class="vocab-sidebar">
+        <h3>📝 핵심 낱말</h3>
+        <div class="vocab-item">
+          <h4>한살이</h4>
+          <p>동물이 태어나서 죽기까지 거치는 모든 과정이에요.</p>
+        </div>
+        <div class="vocab-item orange">
+          <h4>완전변태</h4>
+          <p>알→애벌레→번데기→어른벌레의 4단계 변화.</p>
+        </div>
+        <div class="vocab-item blue">
+          <h4>불완전변태</h4>
+          <p>번데기 없이 알→애벌레→어른벌레로 변하는 것.</p>
+        </div>
+        <div class="vocab-item purple">
+          <h4>탈바꿈</h4>
+          <p>몸의 모양이 크게 변하는 것을 탈바꿈이라고 해요.</p>
+        </div>
+      </div>
+      <div class="quiz-quick">
+        <h3>✏️ 미니 퀴즈!</h3>
+        <p style="font-size:0.8rem;color:#555;margin-bottom:10px;">나비의 한살이 3번째 단계는?</p>
+        <div class="quiz-opt" onclick="quizAnswer(this, false)">① 애벌레</div>
+        <div class="quiz-opt" onclick="quizAnswer(this, true)">② 번데기</div>
+        <div class="quiz-opt" onclick="quizAnswer(this, false)">③ 나비</div>
+        <div class="quiz-opt" onclick="quizAnswer(this, false)">④ 알</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<!-- ACCESS BAR -->
+<div class="access-bar">
+  <span>♿ 접근성 지원</span>
+  <span class="access-chip">🔊 텍스트 읽기</span>
+  <span class="access-chip">⌨️ 키보드 탐색</span>
+  <span class="access-chip">🎙️ 음성 입력</span>
+  <span class="access-chip">🔍 글자 크기 조절</span>
+  <span class="access-chip">👨‍🏫 교사 모드</span>
+</div>
+
+<div class="platform-footer">
+  <strong>🦋 동물의 한살이 통합 학습 플랫폼</strong> — 모두를 위한 과학 교육 (UDL 기반)<br>
+  초등 4학년 1학기 과학 3단원 · 특수교육 통합 지원 · 예시 플랫폼
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ===== NAVIGATION =====
+let visitedPanels = new Set(['home']);
+function showPanel(name) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  const navBtn = document.getElementById('nav-' + name);
+  if (navBtn) navBtn.classList.add('active');
+  visitedPanels.add(name);
+  updateProgress();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function updateProgress() {
+  const total = 6; // 6 content panels
+  const panels = ['ar','drag','media','camera','voice','text'];
+  const visited = panels.filter(p => visitedPanels.has(p)).length;
+  const pct = Math.round((visited / total) * 100);
+  document.getElementById('mainProgress').style.width = pct + '%';
+  document.getElementById('progressText').textContent = pct;
+}
+
+// ===== TOAST =====
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ===== AR =====
+const arStages = [
+  { emoji: '🥚', name: '알', label: '알 단계', desc: '나뭇잎 위에 아주 작게 낳아요. 1~2주 후 애벌레가 깨어나요.' },
+  { emoji: '🐛', name: '애벌레', label: '애벌레 단계', desc: '알에서 깨어난 애벌레는 잎을 먹으며 자라요. 허물을 여러 번 벗어요.' },
+  { emoji: '🫘', name: '번데기', label: '번데기 단계', desc: '껍질 속에서 조용히 몸이 변해가요. 약 2주가 걸려요.' },
+  { emoji: '🦋', name: '나비', label: '나비 단계', desc: '아름다운 날개를 펴고 날아요. 꽃의 꿀을 먹고 알을 낳아요.' },
+];
+let currentArStage = 3;
+let arInfoVisible = true;
+function setArStage(i) {
+  currentArStage = i;
+  document.getElementById('arEmoji').textContent = arStages[i].emoji;
+  document.getElementById('arLabel').textContent = arStages[i].label;
+  document.getElementById('arStageText').textContent = arStages[i].name + ' ' + arStages[i].emoji;
+  document.getElementById('arDesc').textContent = arStages[i].desc;
+  document.querySelectorAll('[id^="arBtn"]').forEach((b, idx) => {
+    b.classList.toggle('active', idx === i);
+  });
+  showToast('🔭 ' + arStages[i].name + ' 단계를 살펴봐요!');
+}
+function nextArStage() {
+  setArStage((currentArStage + 1) % 4);
+}
+function toggleArInfo() {
+  const card = document.querySelector('.ar-info-card');
+  arInfoVisible = !arInfoVisible;
+  card.style.display = arInfoVisible ? '' : 'none';
+}
+
+// ===== DRAG AND DROP (Butterfly) =====
+let draggedItem = null;
+const correctOrder = ['egg', 'larva', 'pupa', 'butterfly'];
+const frogCorrectOrder = ['fegg', 'ftadpole', 'flegged', 'ffrog'];
+let zoneContents = { 0: null, 1: null, 2: null, 3: null };
+let fzoneContents = { f0: null, f1: null, f2: null, f3: null };
+
+const cardData = {
+  egg: { emoji: '🥚', name: '알' },
+  larva: { emoji: '🐛', name: '애벌레' },
+  pupa: { emoji: '🫘', name: '번데기' },
+  butterfly: { emoji: '🦋', name: '나비' },
+  fegg: { emoji: '🫧', name: '알' },
+  ftadpole: { emoji: '🐟', name: '올챙이' },
+  flegged: { emoji: '🦎', name: '다리 올챙이' },
+  ffrog: { emoji: '🐸', name: '개구리' },
+};
+
+function dragStart(e, id) {
+  draggedItem = id;
+  e.target.classList.add('dragging');
+  e.dataTransfer.effectAllowed = 'move';
+}
+function dragEnd(e) { e.target.classList.remove('dragging'); }
+function dragOver(e, zone) {
+  e.preventDefault();
+  const el = zone.toString().startsWith('f')
+    ? document.getElementById('fzone' + zone.toString().slice(1))
+    : document.getElementById('zone' + zone);
+  if (el) el.classList.add('over');
+}
+function dragLeave(zone) {
+  const el = zone.toString().startsWith('f')
+    ? document.getElementById('fzone' + zone.toString().slice(1))
+    : document.getElementById('zone' + zone);
+  if (el) el.classList.remove('over');
+}
+function drop(e, zone) {
+  e.preventDefault();
+  if (!draggedItem) return;
+  const isFrog = zone.toString().startsWith('f');
+  const zoneEl = isFrog
+    ? document.getElementById('fzone' + zone.toString().slice(1))
+    : document.getElementById('zone' + zone);
+  zoneEl.classList.remove('over');
+
+  const d = cardData[draggedItem];
+  if (!d) return;
+
+  if (isFrog) {
+    fzoneContents[zone] = draggedItem;
+    zoneEl.innerHTML = `<span class="zone-emoji">${d.emoji}</span><span class="zone-name">${d.name}</span>`;
+    zoneEl.classList.add('filled');
+  } else {
+    zoneContents[zone] = draggedItem;
+    zoneEl.innerHTML = `<span class="zone-emoji">${d.emoji}</span><span class="zone-name">${d.name}</span>`;
+    zoneEl.classList.add('filled');
+  }
+
+  // hide from source
+  const srcEl = document.getElementById('card-' + draggedItem) || document.getElementById('fcard-' + draggedItem.slice(1));
+  const srcEl2 = document.getElementById('fcard-' + draggedItem.slice(1));
+  if (draggedItem.startsWith('f')) {
+    const el = document.querySelector(`[id="fcard-${draggedItem.slice(1)}"]`) ||
+               document.querySelector(`[ondragstart*="${draggedItem}"]`);
+    if (el) el.style.display = 'none';
+  } else {
+    const el = document.getElementById('card-' + draggedItem);
+    if (el) el.style.display = 'none';
+  }
+  draggedItem = null;
+}
+function checkOrder() {
+  const placed = [zoneContents[0], zoneContents[1], zoneContents[2], zoneContents[3]];
+  const correct = JSON.stringify(placed) === JSON.stringify(correctOrder);
+  const res = document.getElementById('dragResult');
+  if (placed.includes(null)) {
+    res.className = 'drag-result error';
+    res.textContent = '❗ 모든 칸을 채워주세요!';
+  } else if (correct) {
+    res.className = 'drag-result success';
+    res.textContent = '🎉 정답이에요! 나비의 한살이 순서를 완벽히 알고 있군요!';
+    showToast('🎊 완벽해요! 정답!');
+  } else {
+    res.className = 'drag-result error';
+    res.textContent = '😅 아직 아니에요. 다시 생각해봐요! 알 → 애벌레 → 번데기 → 나비 순서예요.';
+  }
+}
+function checkFrogOrder() {
+  const placed = [fzoneContents['f0'], fzoneContents['f1'], fzoneContents['f2'], fzoneContents['f3']];
+  const correct = JSON.stringify(placed) === JSON.stringify(frogCorrectOrder);
+  const res = document.getElementById('frogResult');
+  if (placed.includes(null)) {
+    res.className = 'drag-result error';
+    res.textContent = '❗ 모든 칸을 채워주세요!';
+  } else if (correct) {
+    res.className = 'drag-result success';
+    res.textContent = '🎉 정답! 개구리의 한살이도 완벽해요!';
+    showToast('🐸 개구리 한살이 정답!');
+  } else {
+    res.className = 'drag-result error';
+    res.textContent = '😅 다시 도전! 알 → 올챙이 → 다리 난 올챙이 → 개구리 순서예요.';
+  }
+}
+function resetDrag() {
+  zoneContents = { 0: null, 1: null, 2: null, 3: null };
+  [0,1,2,3].forEach(i => {
+    const z = document.getElementById('zone' + i);
+    z.innerHTML = `<span class="zone-label">0${i+1} ${['첫','두','세','네'][i]} 번째</span>`;
+    z.classList.remove('filled');
+  });
+  ['egg','larva','pupa','butterfly'].forEach(id => {
+    const el = document.getElementById('card-' + id);
+    if (el) el.style.display = '';
+  });
+  document.getElementById('dragResult').className = 'drag-result';
+}
+function resetFrogDrag() {
+  fzoneContents = { f0: null, f1: null, f2: null, f3: null };
+  [0,1,2,3].forEach(i => {
+    const z = document.getElementById('fzone' + i);
+    z.innerHTML = `<span class="zone-label">0${i+1} ${['첫','두','세','네'][i]} 번째</span>`;
+    z.classList.remove('filled');
+  });
+  document.querySelectorAll('#frogCards .drag-card').forEach(el => el.style.display = '');
+  document.getElementById('frogResult').className = 'drag-result';
+}
+
+// ===== MEDIA =====
+function changeVideo(id, title) {
+  document.getElementById('mainVideo').src = 'https://www.youtube.com/embed/' + id;
+  document.getElementById('videoTitle').textContent = title;
+  document.querySelectorAll('.media-item').forEach(el => el.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+}
+
+// ===== CAMERA =====
+let stream = null;
+async function startCamera() {
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({ video: true });
+    const video = document.getElementById('cameraFeed');
+    video.srcObject = stream;
+    video.style.display = 'block';
+    document.getElementById('camPlaceholder').style.display = 'none';
+    showToast('📷 카메라가 켜졌어요!');
+  } catch(e) {
+    showToast('❗ 카메라 권한이 필요해요. 브라우저에서 허용해주세요.');
+  }
+}
+function stopCamera() {
+  if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
+  const video = document.getElementById('cameraFeed');
+  video.style.display = 'none';
+  document.getElementById('camPlaceholder').style.display = '';
+  showToast('📷 카메라가 꺼졌어요.');
+}
+function capturePhoto() {
+  const video = document.getElementById('cameraFeed');
+  if (!stream) { showToast('❗ 먼저 카메라를 시작해주세요!'); return; }
+  const canvas = document.getElementById('photoCanvas');
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  canvas.getContext('2d').drawImage(video, 0, 0);
+  const dataUrl = canvas.toDataURL('image/jpeg');
+  addToGallery(dataUrl, '직접 촬영 📸');
+  showToast('📸 사진이 찍혔어요!');
+}
+function handleUpload(e) {
+  const files = e.target.files;
+  if (!files.length) return;
+  Array.from(files).forEach(file => {
+    const reader = new FileReader();
+    reader.onload = ev => addToGallery(ev.target.result, file.name.split('.')[0]);
+    reader.readAsDataURL(file);
+  });
+  showToast('📁 ' + files.length + '개 파일이 업로드됐어요!');
+}
+function addToGallery(src, label) {
+  const gallery = document.getElementById('uploadGallery');
+  const item = document.createElement('div');
+  item.className = 'gallery-item';
+  item.innerHTML = `<img src="${src}" alt="${label}"><div>${label}</div>`;
+  gallery.insertBefore(item, gallery.firstChild);
+}
+
+// ===== VOICE =====
+let recognition = null;
+let isListening = false;
+const questions = [
+  '나비의 한살이 4단계를 말해보세요!',
+  '번데기 시기에는 어떤 일이 일어날까요?',
+  '나비와 개구리의 한살이 차이점은 무엇인가요?',
+  '동물의 한살이가 왜 중요하다고 생각하나요?'
+];
+function toggleMic() {
+  if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+    showToast('❗ 이 브라우저는 음성인식을 지원하지 않아요. Chrome을 사용해주세요!');
+    return;
+  }
+  if (isListening) {
+    stopListening();
+  } else {
+    startListening();
+  }
+}
+function startListening() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SR();
+  recognition.lang = 'ko-KR';
+  recognition.continuous = false;
+  recognition.interimResults = true;
+  recognition.onresult = e => {
+    let interim = '';
+    for (let i = e.resultIndex; i < e.results.length; i++) {
+      if (e.results[i].isFinal) {
+        document.getElementById('transcript').textContent += e.results[i][0].transcript + ' ';
+      } else {
+        interim += e.results[i][0].transcript;
+      }
+    }
+  };
+  recognition.onend = () => { isListening = false; updateMicUI(); };
+  recognition.start();
+  isListening = true;
+  updateMicUI();
+  showToast('🎙️ 듣고 있어요... 말해보세요!');
+}
+function stopListening() {
+  if (recognition) recognition.stop();
+  isListening = false;
+  updateMicUI();
+}
+function updateMicUI() {
+  const btn = document.getElementById('micBtn');
+  const status = document.getElementById('micStatus');
+  btn.classList.toggle('listening', isListening);
+  btn.textContent = isListening ? '⏸' : '🎙️';
+  status.textContent = isListening ? '🔴 듣는 중... 말해보세요!' : '마이크 버튼을 눌러주세요';
+}
+function clearTranscript() {
+  document.getElementById('transcript').textContent = '여기에 말한 내용이 나타나요...';
+}
+function askQuestion(idx) {
+  document.getElementById('transcript').textContent = '❓ ' + questions[idx] + '\n';
+  document.querySelectorAll('.q-item').forEach((q, i) => q.classList.toggle('answered', i === idx));
+  startListening();
+}
+function readAloud(text) {
+  if (!('speechSynthesis' in window)) { showToast('❗ 이 브라우저는 TTS를 지원하지 않아요.'); return; }
+  window.speechSynthesis.cancel();
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.lang = 'ko-KR';
+  utter.rate = 0.9;
+  window.speechSynthesis.speak(utter);
+  showToast('🔊 읽어드릴게요!');
+}
+
+// ===== QUIZ =====
+function quizAnswer(el, correct) {
+  document.querySelectorAll('.quiz-opt').forEach(o => o.classList.remove('correct', 'wrong'));
+  el.classList.add(correct ? 'correct' : 'wrong');
+  if (correct) showToast('🎉 정답이에요! 번데기가 3번째 단계!');
+  else showToast('😅 아니에요! 번데기가 3번째 단계예요.');
+}
+
+// ===== TEACHER MANUAL =====
+function openManual(tab) {
+  document.getElementById('manualOverlay').classList.add('open');
+  switchTab(tab || 'overview');
+  document.body.style.overflow = 'hidden';
+}
+function openManualTab(tab) {
+  openManual(tab);
+}
+function closeManual() {
+  document.getElementById('manualOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeManualIfOutside(e) {
+  if (e.target === document.getElementById('manualOverlay')) closeManual();
+}
+function switchTab(name) {
+  document.querySelectorAll('.mtab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.mtab-content').forEach(c => c.classList.remove('active'));
+  const tab = document.getElementById('mtab-' + name);
+  const content = document.getElementById('mcontent-' + name);
+  if (tab) tab.classList.add('active');
+  if (content) content.classList.add('active');
+}
+// ESC 키로 닫기
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeManual(); });
+
+// init
+setArStage(3);
+</script>
+</body>
+</html>
